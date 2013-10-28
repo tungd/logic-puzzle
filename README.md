@@ -1,14 +1,4 @@
-# clojure-logic
+# Logic Puzzle
 
-A Clojure library designed to ... well, that part is up to you.
-
-## Usage
-
-FIXME
-
-## License
-
-Copyright © 2013 FIXME
-
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
+Solutions of [logic puzzles](http://brownbuffalo.sourceforge.net/puzzle_index.html)
+using CLP(FD)

@@ -1,4 +1,4 @@
-(ns clojure-logic.puzzles.a-round-of-golf
+(ns logic-puzzle.puzzles.round-of-golf
   (:refer-clojure :exclude [==])
   (:require [clojure.core.logic :refer :all]
             [clojure.core.logic.fd :as fd]))
@@ -33,13 +33,9 @@
 ;;
 ;; Answer: http://brownbuffalo.sourceforge.net/RoundOfGolfAnswer.html
 
-(defn ->fname [p] (first p))
-(defn ->lname [p] (nth p 1))
-(defn ->job [p] (nth p 2))
-(defn ->score [p] (nth p 3))
-
 (defn golffd [q]
-  (let [bill ['bill (lvar) (lvar) (lvar)]
+  (let [->score last
+        bill ['bill (lvar) (lvar) (lvar)]
         jack ['jack (lvar) (lvar) (lvar)]
         frank ['frank (lvar) (lvar) (lvar)]
         paul ['paul (lvar) (lvar) (lvar)]
@@ -64,10 +60,10 @@
      (everyg #(fd/in % (fd/interval 70 86)) scores)
      (everyg fd/distinct (partition 4 scores))
 
-     (!= (->job bill) 'maint)
+     (!= bill maint)
      (everyg #(fd/< (->score bill) %) (map ->score [jack frank paul]))
 
-     (!= (->fname clubb) 'paul)
+     (!= clubb paul)
      (fd/- (->score clubb) (->score clerk) 10)
 
      (conde

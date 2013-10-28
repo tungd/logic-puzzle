@@ -1,4 +1,4 @@
-(ns clojure-logic.puzzles.arch-friends
+(ns logic-puzzle.puzzles.arch-friends
   (:refer-clojure :exclude [==])
   (:require [clojure.core.logic :refer :all]
             [clojure-logic.utils :refer [aftero secondo]]))
@@ -27,7 +27,7 @@
 ;;
 ;; Answer: http://brownbuffalo.sourceforge.net/ArchFriendsAnswer.html
 
-(defn arch-friendsfd [q]
+(defn arch-friendso [q]
   (let [fuchsia-flats ['fuchsia-flats (lvar)]
         purple-pumps ['purple-pumps (lvar)]
         suede-sandals ['suede-sandals (lvar)]
@@ -53,5 +53,5 @@
        (aftero m suede-sandals q)))))
 
 (comment
-  (run 1 [q] (arch-friendsfd q))
+  (run 1 [q] (arch-friendso q))
   )

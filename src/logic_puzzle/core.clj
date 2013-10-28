@@ -1,4 +1,4 @@
-(ns clojure-logic.core)
+(ns logic-puzzle.core)
 
 (defn foo
   "I don't do a whole lot."
