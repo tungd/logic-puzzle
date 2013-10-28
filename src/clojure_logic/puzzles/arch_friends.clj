@@ -1,5 +1,6 @@
 (ns clojure-logic.puzzles.arch-friends
-  (:require [clojure.core.logic :refer :all]))
+  (:require [clojure.core.logic :refer :all]
+            [clojure-logic.utils :refer [aftero not-aftero secondo]]))
 
 ;; http://brownbuffalo.sourceforge.net/ArchFriendsClues.html
 ;; Author: Mark T. Zegarelli
@@ -25,23 +26,9 @@
 ;;
 ;; Answer: http://brownbuffalo.sourceforge.net/ArchFriendsAnswer.html
 
-(defne aftero [x y l]
-  ([_ _ [x y . r]])
-  ([_ _ [_ . r]] (aftero x y r)))
-
-(defn not-aftero [x y l]
-  (fresh [m]
-    (aftero x m l)
-    (!= y m)))
-
-(defn secondo [l a]
-  (fresh [r]
-    (resto l r)
-    (firsto r a)))
-
 (defn arch-friendsfd [q]
   (all
-   (== [(lvar) (lvar) (lvar) (lvar)] q)
+   (== (vec (repeatedly 4 lvar)) q)
 
    (membero ['fuchsia-flats (lvar)] q)
    (membero ['purple-pumps (lvar)] q)
