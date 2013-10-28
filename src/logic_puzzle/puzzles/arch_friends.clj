@@ -1,7 +1,7 @@
 (ns logic-puzzle.puzzles.arch-friends
   (:refer-clojure :exclude [==])
   (:require [clojure.core.logic :refer :all]
-            [clojure-logic.utils :refer [aftero secondo]]))
+            [logic-puzzle.utils :refer [aftero secondo]]))
 
 ;; http://brownbuffalo.sourceforge.net/ArchFriendsClues.html
 ;; Author: Mark T. Zegarelli
