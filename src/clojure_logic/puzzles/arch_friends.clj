@@ -1,6 +1,7 @@
 (ns clojure-logic.puzzles.arch-friends
+  (:refer-clojure :exclude [==])
   (:require [clojure.core.logic :refer :all]
-            [clojure-logic.utils :refer [aftero not-aftero secondo]]))
+            [clojure-logic.utils :refer [aftero secondo]]))
 
 ;; http://brownbuffalo.sourceforge.net/ArchFriendsClues.html
 ;; Author: Mark T. Zegarelli
@@ -27,26 +28,30 @@
 ;; Answer: http://brownbuffalo.sourceforge.net/ArchFriendsAnswer.html
 
 (defn arch-friendsfd [q]
-  (all
-   (== (vec (repeatedly 4 lvar)) q)
+  (let [fuchsia-flats ['fuchsia-flats (lvar)]
+        purple-pumps ['purple-pumps (lvar)]
+        suede-sandals ['suede-sandals (lvar)]
+        ecru-espadrilles ['ecru-espadrilles (lvar)]
 
-   (membero ['fuchsia-flats (lvar)] q)
-   (membero ['purple-pumps (lvar)] q)
-   (membero ['suede-sandals (lvar)] q)
-   (membero ['ecru-espadrilles (lvar)] q)
+        foot-farm [(lvar) 'foot-farm]
+        heels-in-a-handcart [(lvar) 'heels-in-a-handcart]
+        the-shoe-palace [(lvar) 'the-shoe-palace]
+        tootsies [(lvar) 'tootsies]
 
-   (membero [(lvar) 'foot-farm] q)
-   (membero [(lvar) 'heels-in-a-handcart] q)
-   (membero [(lvar) 'the-shoe-palace] q)
-   (membero [(lvar) 'tootsies] q)
-
-   (membero ['fuchsia-flats 'heels-in-a-handcart] q)
-   (not-aftero ['purple-pumps (lvar)] [(lvar) 'tootsies] q)
-   (secondo q [(lvar) 'foot-farm])
-   (fresh [m n]
-     (aftero [(lvar) 'the-shoe-palace] m q)
-     (aftero m ['suede-sandals (lvar)] q))))
+        u [fuchsia-flats purple-pumps suede-sandals ecru-espadrilles
+           foot-farm heels-in-a-handcart the-shoe-palace tootsies]]
+    (all
+     (== (vec (repeatedly 4 lvar)) q)
+     (everyg #(membero % q) u)
+     (== fuchsia-flats heels-in-a-handcart)
+     (fresh [m]
+       (aftero purple-pumps m q)
+       (!= m tootsies))
+     (secondo q foot-farm)
+     (fresh [m n]
+       (aftero the-shoe-palace m q)
+       (aftero m suede-sandals q)))))
 
 (comment
-  (run* [q] (arch-friendsfd q))
+  (run 1 [q] (arch-friendsfd q))
   )
